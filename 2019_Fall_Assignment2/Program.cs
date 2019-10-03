@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace _2019_Fall_Assignment2
 {
@@ -86,16 +87,50 @@ namespace _2019_Fall_Assignment2
 
         public static int[] Intersect(int[] nums1, int[] nums2)
         {
+            int[] result = new int[] { };
+
             try
-            {
+            {       
+                   
                 // Write your code here
+
+                HashSet<int> hash1 = new HashSet<int> ();
+                foreach (int n in nums1) hash1.Add(n);
+                HashSet<int> hash2 = new HashSet<int> ();
+                foreach (int n in nums2) hash2.Add(n);
+
+
+                if (hash1.Count < hash2.Count) {
+                    //return checkIntersect(hash1, hash2);
+                    int [] output = new int [hash1.Count];
+                    int i = 0;
+                    foreach (int x in hash1) 
+                        if (hash2.Contains(x)) output[i++] = x;
+
+                    Array.Copy(output, result, i);
+                    
+                }
+                
+                else {
+                    //return checkIntersect(hash2, hash1);
+                    int [] output = new int [hash2.Count];
+                    int i = 0;
+                    foreach (int x in hash2) 
+                        if (hash1.Contains(x)) output[i++] = x;
+
+                    Array.Copy(output, result, i);
+
+                }
+
+                //return result;
             }
             catch
             {
                 Console.WriteLine("Exception occured while computing Intersect()");
             }
 
-            return new int[] { };
+            return result;
+            //new int[] { };
         }
 
         public static int LargestUniqueNumber(int[] A)
