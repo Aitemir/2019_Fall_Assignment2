@@ -265,8 +265,7 @@ namespace _2019_Fall_Assignment2
             {
                 Console.WriteLine("Exception occured while computing FlipAndInvertImage()");
             }
-            //return arrayResult;
-            return new int[,] { };
+            return arrayResult;
         }
 
         public static int MinMeetingRooms(int[,] intervals)
