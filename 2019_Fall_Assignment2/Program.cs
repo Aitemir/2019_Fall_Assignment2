@@ -7,12 +7,12 @@ namespace _2019_Fall_Assignment2
     {
         public static void Main(string[] args)
         {
-            int target = 5;
+            int target = 2;
             int[] nums = { 1, 3, 5, 6 };
             Console.WriteLine("Position to insert {0} is = {1}\n", target, SearchInsert(nums, target));
 
-            int[] nums1 = { 1, 2, 2, 1 };
-            int[] nums2 = { 2, 2 };
+            int[] nums1 = { 2, 5, 2, 2 };
+            int[] nums2 = { 5, 5 };
             int[] intersect = Intersect(nums1, nums2);
             Console.WriteLine("Intersection of two arrays is: ");
             DisplayArray(intersect);
@@ -75,7 +75,33 @@ namespace _2019_Fall_Assignment2
         {
             try
             {
-                // Write your code here
+
+                // declaring variables
+                int index = 0;
+                int n = nums.Length - 1;
+                int y;
+
+                // while loop to 
+                while (index < n)
+                {
+                    y = index + (n - index) / 2;
+
+                    if (target == nums[y]) {
+                        return y;
+                    }
+
+                    if (target < nums[y])
+                    {
+                        n = y - 1;}
+                    else {
+                        index = y + 1; }
+                }
+
+                if (target <= nums[index]) {
+                    return index;
+                }
+
+                return index + 1;
             }
             catch
             {
@@ -127,23 +153,59 @@ namespace _2019_Fall_Assignment2
 
         public static int LargestUniqueNumber(int[] A)
         {
+            // sorting and reversing the array provided as parameter
+            Array.Sort(A);
+            Array.Reverse(A);
+
             try
             {
-                // Write your code here
+                // declaring temporary variables for the for loops
+                int x;
+                int y;
+
+                for (x = 0; x < A.Length; x++) {
+
+                    for (y = 0; y < A.Length; y++) {
+                        if (x != y && A[x] == A[y]) {
+                            break;
+                        }
+                    }
+
+                    if (y == A.Length) {
+                        return A[x];
+                    }
+                }
             }
             catch
             {
                 Console.WriteLine("Exception occured while computing LargestUniqueNumber()");
             }
-
-            return 0;
+            // returning -1 in case no integer occurs once
+            return -1;
         }
 
         public static int CalculateTime(string keyboard, string word)
         {
             try
             {
-                // Write your code here
+                // declaring of variables: result and position
+                int result = 0;
+                int position = 0;
+
+                // foreach loop to calculate the time
+                foreach (var i in  word)
+                {
+                    // int value to store value read from the keyboard:
+                    int value;
+                    value = keyboard.IndexOf(i);
+                    // calculating results through Abs method  to return
+                    // absolute value where positon subtracts value
+                    result = result + Math.Abs(position - value);
+                    position = value;
+
+                }
+                // returning result
+                return result;
             }
             catch
             {
@@ -155,47 +217,141 @@ namespace _2019_Fall_Assignment2
 
         public static int[,] FlipAndInvertImage(int[,] A)
         {
+            // declaring variables
+            int i, j;
+            i = A.GetLength(0);
+            j = A.GetLength(1);
+            
+            int cols = i - 1;
+            int actualValue, invertedResult;
+
+            // result will be stored in this array
+            int[,] arrayResult = new int[i, j]; 
+
             try
             {
-                // Write your code here
+                // for loop to iterate through the rows
+                for (int x = 0; x <= i; x++) {
+                    // for loop to iterate through the columns
+                    for (int y = 0; y <= j - 1; y++) {
+                        actualValue = A[x, y];
+                        if (actualValue == 1)
+                        {
+                            invertedResult = 0;
+                        }
+                        else {
+                            invertedResult = 1;
+                        }
+
+                        arrayResult.SetValue(invertedResult, x, cols);
+                        cols--;
+                    }
+                    cols = i - 1;
+                    
+                }
+                // returns inverted values in the array
+                return arrayResult;
             }
+
             catch
             {
                 Console.WriteLine("Exception occured while computing FlipAndInvertImage()");
             }
-
+            //return arrayResult;
             return new int[,] { };
         }
 
         public static int MinMeetingRooms(int[,] intervals)
         {
+            // declaring initial variables for for-loops and setting initial values
+            int loopBegin = 0;
+            int loopEnd = 0;
+            int max = 0;
+            int used = 0;
+            
+            // declaring lists for start and end
+            List<int> start = new List<int>();
+            List<int> end = new List<int>();
+
             try
             {
-                // Write your code here
+                //creating start and end time for the intervals
+                for (int i = 0; i < intervals.GetLength(0); i++)
+                {
+                    start.Add(intervals[i, 0]);
+                    end.Add(intervals[i, 1]);
+                }
+                start.Sort();
+                end.Sort();
+
+                // the while loop is going through the lists
+                while (loopBegin < start.Count && loopEnd < start.Count)
+                {
+                    // the if else statement increments counters for in use rooms 
+                    // and start time counter
+                    if (start[loopBegin] <= end[loopEnd])
+                    {
+                        used++;
+
+                        //if statement to overwrite the maximum
+                        if (used > max)
+                        {
+                            max = used;
+                        }
+
+                        loopBegin++;
+                    }
+
+                    // else clause for the end time of current entry
+                    else
+                    {
+                        used--;
+                        loopEnd++;
+                    }
+                }
             }
             catch
             {
                 Console.WriteLine("Exception occured while computing MinMeetingRooms()");
             }
 
-            return 0;
+            //returning the maximum number of rooms to get the output
+            return max;
         }
 
-        public static int[] SortedSquares(int[] A)
+        private static int[] SortedSquares(int[] arr)
         {
+            // declaring variable length to store the number of values in the array
+            int length;
+            length = arr.GetLength(0);
+            
+            // declaring integer array to store the values. The number of values
+            // is the same to the length of the original array arr
+            int[] squareArray = new int[length];
+
+            int num;
+            int y = 0;
+
             try
             {
-                // Write your code here
+                Array.Sort(arr);
+                foreach (int x in arr)
+                {
+                    num = (int)Math.Pow(x, 2);
+                    squareArray.SetValue(num, y);
+                    y++;
+                }
+                Array.Sort(squareArray);
             }
             catch
             {
                 Console.WriteLine("Exception occured while computing SortedSquares()");
             }
-
-            return new int[] { };
+            // returning result of the squareArray
+            return squareArray;
         }
-
-        public static bool ValidPalindrome(string s)
+    
+    public static bool ValidPalindrome(string s)
         {
             try
             {
