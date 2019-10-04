@@ -81,7 +81,7 @@ namespace _2019_Fall_Assignment2
                 int n = nums.Length - 1;
                 int y;
 
-                // while loop to 
+                // while loop to divide and conquer
                 while (index < n)
                 {
                     y = index + (n - index) / 2;
@@ -97,10 +97,12 @@ namespace _2019_Fall_Assignment2
                         index = y + 1; }
                 }
 
+                // if statement to identify if the target is out of range
                 if (target <= nums[index]) {
                     return index;
                 }
 
+                // returning the output value
                 return index + 1;
             }
             catch
@@ -116,23 +118,27 @@ namespace _2019_Fall_Assignment2
 
             try
             {
-
-                HashSet<int> hash = new HashSet<int>(); // we store integers in this hashset
+                // we store integers in this hashset
+                HashSet<int> hash = new HashSet<int>(); 
                 foreach (int x in nums1)
                 {
-                    hash.Add(x); // adding unique values from first array to the hashset
+                    // adding unique values from first array to the hashset
+                    hash.Add(x); 
                 }
 
-                HashSet<int> intersec = new HashSet<int>(); // we store integers that intersect
+                // we store integers that intersect
+                HashSet<int> intersec = new HashSet<int>(); 
                 foreach (int x in nums2)
                 {
                     if (hash.Contains(x)) 
                     {
-                        intersec.Add(x); // add value to intersection if similar values found
+                        // add value to intersection if similar values found
+                        intersec.Add(x); 
                     }
                 }
 
-                int[] intersecValue = new int[intersec.Count]; // the value contains size of the intersection hashset
+                // the value contains size of the intersection hashset
+                int[] intersecValue = new int[intersec.Count]; 
                 int index = 0;
 
                 foreach (int i in intersec)
@@ -140,7 +146,8 @@ namespace _2019_Fall_Assignment2
                     intersecValue[index++] = i;
                 }
 
-                return intersecValue; // returns result value - intersection value
+                // returning result value - intersection value
+                return intersecValue; 
 
             }
             catch
@@ -162,9 +169,10 @@ namespace _2019_Fall_Assignment2
                 // declaring temporary variables for the for loops
                 int x;
                 int y;
-
                 for (x = 0; x < A.Length; x++) {
-
+                    
+                    // for loop to identify the largest value. If it is found,
+                    // we brake the statement 
                     for (y = 0; y < A.Length; y++) {
                         if (x != y && A[x] == A[y]) {
                             break;
@@ -333,7 +341,7 @@ namespace _2019_Fall_Assignment2
             int y = 0;
 
             try
-            {
+            {   // sorting the array and looping through the num and taking power of 2
                 Array.Sort(arr);
                 foreach (int x in arr)
                 {
@@ -350,12 +358,33 @@ namespace _2019_Fall_Assignment2
             // returning result of the squareArray
             return squareArray;
         }
-    
-    public static bool ValidPalindrome(string s)
+
+        public static bool ValidPalindrome(string s)
         {
             try
             {
-                // Write your code here
+                // declaring variables
+                int[] intArray = new int[26];
+                int x;
+                // num is a counter variable
+                int num = 0;
+
+                // for loops to identify if a string can be palindrome
+                for (x = 0; x < s.Length; x++)
+                {
+                    intArray[s[x] - 'a']++;
+                }
+
+                for (x = 0; x < intArray.Length; x++)
+                {
+                    if (intArray[x] % 2 != 0)
+                        num++;
+                }
+
+                if (num >= 3)
+                    return false;
+
+                else return true;
             }
             catch
             {
@@ -364,5 +393,6 @@ namespace _2019_Fall_Assignment2
 
             return false;
         }
+
     }
 }
