@@ -258,7 +258,7 @@ namespace _2019_Fall_Assignment2
                     
                 }
                 // returns inverted values in the array
-                return arrayResult;
+                //return arrayResult;
             }
 
             catch
